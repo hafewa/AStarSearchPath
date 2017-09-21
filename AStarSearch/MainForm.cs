@@ -170,12 +170,26 @@ namespace AStarSearch
         /// <returns>附近可达坐标数组</returns>
         private MapCell[] FindNearCell(Point CellPoint)
         {
-            //todo:在这里扩展允许对角线移动
             List<MapCell> NearCellPoints = new List<MapCell>();
+
+            //左上
+            if (CellPoint.X > 0 && CellPoint.Y>0 && !MapCells[CellPoint.X - 1, CellPoint.Y - 1].IsObstacle) NearCellPoints.Add(MapCells[CellPoint.X - 1, CellPoint.Y - 1]);
+            //右上
+            if (CellPoint.X < TABLE_WIDTH - 1 && CellPoint.Y>0 && !MapCells[CellPoint.X + 1, CellPoint.Y - 1].IsObstacle) NearCellPoints.Add(MapCells[CellPoint.X + 1, CellPoint.Y - 1]);
+            //左下
+            if (CellPoint.X > 0 && CellPoint.Y <TABLE_HEIGHT-1 && !MapCells[CellPoint.X - 1, CellPoint.Y + 1].IsObstacle) NearCellPoints.Add(MapCells[CellPoint.X - 1, CellPoint.Y + 1]);
+            //右下
+            if (CellPoint.X > 0 && CellPoint.Y < TABLE_HEIGHT - 1 && !MapCells[CellPoint.X + 1, CellPoint.Y + 1].IsObstacle) NearCellPoints.Add(MapCells[CellPoint.X + 1, CellPoint.Y + 1]);
+
+            //左
             if (CellPoint.X>0 && !MapCells[CellPoint.X-1, CellPoint.Y].IsObstacle) NearCellPoints.Add(MapCells[CellPoint.X-1, CellPoint.Y]);
+            //右
             if (CellPoint.X<TABLE_WIDTH-1 && !MapCells[CellPoint.X+1, CellPoint.Y].IsObstacle) NearCellPoints.Add(MapCells[CellPoint.X+1, CellPoint.Y]);
+            //上
             if (CellPoint.Y > 0 && !MapCells[CellPoint.X , CellPoint.Y-1].IsObstacle) NearCellPoints.Add(MapCells[CellPoint.X, CellPoint.Y-1]);
+            //下
             if (CellPoint.Y < TABLE_HEIGHT - 1 && !MapCells[CellPoint.X, CellPoint.Y + 1].IsObstacle) NearCellPoints.Add(MapCells[CellPoint.X, CellPoint.Y+1]);
+
             return NearCellPoints.ToArray();
         }
 
